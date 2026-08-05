@@ -2,19 +2,40 @@
 
 ![Market Watch project cover](assets/recruiter/cover.png)
 
-> **Portfolio lens:** A considered interface foundation for market monitoring, with its current boundaries stated plainly before live data and alerts are introduced.
+> **Current status:** Initial Next.js interface scaffold. Live market-monitoring functionality has not yet been implemented.
 
-Market Watch is the beginning of a market-monitoring interface built with Next.js. It currently provides the application shell and UI foundation; live prices, watchlists, alerts, and a data provider have not been wired in yet.
+Market Watch is a starting point for a future market-monitoring application using Next.js, React, TypeScript, Tailwind CSS, and Radix UI primitives. The current root page is only a basic button, with no connected price provider, charts, watchlists, alerts, portfolio data, or market-analysis workflow.
 
-That distinction is deliberate: this repository is the place to build the interface before presenting it as a live market-analysis product.
-
-## Start locally
+## Run locally
 
 ```bash
 npm ci
 npm run dev
 ```
 
-Visit `http://localhost:3000` after Next.js starts. The stack is Next.js, React, TypeScript, Tailwind CSS, and Radix UI primitives.
+Visit `http://localhost:3000` after Next.js starts.
 
-Use `npm run lint` before a change and `npm run build` to create a production build. `npm run start` serves an existing production build.
+Use the existing project commands before sharing changes:
+
+```bash
+npm run lint
+npm run build
+npm run start
+```
+
+## Minimum scope before portfolio use
+
+- Connect a documented market-data provider.
+- Add symbol search and a persistent watchlist.
+- Display price history with loading and error states.
+- Add clear data timestamps and delayed-data disclosures.
+- Include automated type-checking and build validation.
+- Add screenshots or a deployed demonstration of the actual workflow.
+
+## Portfolio recommendation
+
+Archive this repository until at least one end-to-end market-monitoring workflow is functional. A polished README or interface shell should not be presented as a working market product.
+
+## Financial-information boundary
+
+Any future implementation should distinguish informational market data from personalised financial advice and clearly document data delays, provider limitations, and the absence of guaranteed outcomes.
