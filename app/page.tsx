@@ -1,10 +1,5 @@
-import {Button} from "@/components/ui/button";
+import MarketWatchDashboard from '@/components/market-watch-dashboard';
 
-const Home = () => {
-    return (
-        <div className="flex justify-center items-center h-screen">
-            <Button>Click</Button>
-        </div>
-    )
+export default function Home() {
+  return <MarketWatchDashboard />;
 }
-export default Home
