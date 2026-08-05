@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Market Watch",
-  description: "Track real-time financial markets",
+  title: "Market Watch | Local Portfolio Workspace",
+  description:
+    "A browser-local watchlist for manually tracking reference prices, positions, targets and unrealized results.",
 };
 
 export default function RootLayout({
