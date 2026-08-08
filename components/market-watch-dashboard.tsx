@@ -66,12 +66,16 @@ function isWatchItem(value: unknown): value is WatchItem {
     typeof item.name === 'string' &&
     typeof item.entryPrice === 'number' &&
     Number.isFinite(item.entryPrice) &&
+    item.entryPrice >= 0 &&
     typeof item.currentPrice === 'number' &&
     Number.isFinite(item.currentPrice) &&
+    item.currentPrice >= 0 &&
     typeof item.shares === 'number' &&
     Number.isFinite(item.shares) &&
+    item.shares >= 0 &&
     typeof item.targetPrice === 'number' &&
     Number.isFinite(item.targetPrice) &&
+    item.targetPrice >= 0 &&
     typeof item.note === 'string' &&
     typeof item.updatedAt === 'string'
   );
@@ -287,7 +291,7 @@ export default function MarketWatchDashboard() {
 
                       <div className="mt-5 grid gap-4 sm:grid-cols-3">
                         <EditableMetric label="Current price" value={item.currentPrice} onChange={(value) => updateItem(item.id, 'currentPrice', value)} />
-                        <EditableMetric label="Quantity" value={item.shares} onChange={(value) => updateItem(item.id, 'shares', value)} step="0.001" />
+                        <EditableMetric label="Quantity" value={item.shares} onChange={(value) => updateItem(item.id, 'shares', value)} step="any" />
                         <EditableMetric label="Target price" value={item.targetPrice} onChange={(value) => updateItem(item.id, 'targetPrice', value)} />
                       </div>
 
@@ -326,10 +330,10 @@ export default function MarketWatchDashboard() {
                 <Field label="Name" value={draft.name} onChange={(value) => setDraft((current) => ({ ...current, name: value }))} placeholder="Apple" />
               </div>
               <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2">
-                <Field label="Entry price" type="number" value={draft.entryPrice} onChange={(value) => setDraft((current) => ({ ...current, entryPrice: value }))} placeholder="100.00" required />
-                <Field label="Current price" type="number" value={draft.currentPrice} onChange={(value) => setDraft((current) => ({ ...current, currentPrice: value }))} placeholder="108.50" required />
-                <Field label="Quantity" type="number" value={draft.shares} onChange={(value) => setDraft((current) => ({ ...current, shares: value }))} placeholder="0" />
-                <Field label="Target price" type="number" value={draft.targetPrice} onChange={(value) => setDraft((current) => ({ ...current, targetPrice: value }))} placeholder="120.00" required />
+                <Field label="Entry price" type="number" step="any" value={draft.entryPrice} onChange={(value) => setDraft((current) => ({ ...current, entryPrice: value }))} placeholder="100.00" required />
+                <Field label="Current price" type="number" step="any" value={draft.currentPrice} onChange={(value) => setDraft((current) => ({ ...current, currentPrice: value }))} placeholder="108.50" required />
+                <Field label="Quantity" type="number" step="any" value={draft.shares} onChange={(value) => setDraft((current) => ({ ...current, shares: value }))} placeholder="0" />
+                <Field label="Target price" type="number" step="any" value={draft.targetPrice} onChange={(value) => setDraft((current) => ({ ...current, targetPrice: value }))} placeholder="120.00" required />
               </div>
               <label className="block text-sm font-medium text-gray-300">
                 Note
@@ -389,6 +393,7 @@ function Field({
   placeholder,
   type = 'text',
   required = false,
+  step,
 }: {
   label: string;
   value: string;
@@ -396,6 +401,7 @@ function Field({
   placeholder: string;
   type?: 'text' | 'number';
   required?: boolean;
+  step?: string;
 }) {
   return (
     <label className="block text-sm font-medium text-gray-300">
@@ -407,7 +413,7 @@ function Field({
         placeholder={placeholder}
         required={required}
         min={type === 'number' ? 0 : undefined}
-        step={type === 'number' ? '0.01' : undefined}
+        step={type === 'number' ? step ?? 'any' : undefined}
         className="mt-2 w-full rounded-lg border border-gray-600 bg-gray-900 px-3 py-2 text-white placeholder:text-gray-600 focus:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-400/20"
       />
     </label>
@@ -418,7 +424,7 @@ function EditableMetric({
   label,
   value,
   onChange,
-  step = '0.01',
+  step = 'any',
 }: {
   label: string;
   value: number;
